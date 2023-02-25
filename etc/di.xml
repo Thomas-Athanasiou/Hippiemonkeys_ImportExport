@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+    Thomas Athanasiou at Hippiemonkeys
+    Copyright (c) 2023 Hippiemonkeys (https://hippiemonkeys.com)
+    Hippiemonkeys_ImportExport
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Hippiemonkeys\ImportExport\Helper\Config\Section\Group\General" type="Hippiemonkeys\Core\Helper\Config\Section\Group\Sub">
+        <arguments>
+            <argument name="section" xsi:type="string">Hippiemonkeys_ImportExport</argument>
+            <argument name="group" xsi:type="string">general</argument>
+            <argument name="activeField" xsi:type="string">active</argument>
+            <argument name="parentConfig" xsi:type="object">Hippiemonkeys\Core\Helper\Config\Section\General</argument>
+        </arguments>
+    </virtualType>
+</config>

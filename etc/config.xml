@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Thomas Athanasiou at Hippiemonkeys
+    Copyright (c) 2023 Hippiemonkeys (https://hippiemonkeys.com)
+    Hippiemonkeys_ImportExport
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <Hippiemonkeys_ImportExport>
+            <general>
+                <active>1</active>
+            </general>
+        </Hippiemonkeys_ImportExport>
+    </default>
+</config>

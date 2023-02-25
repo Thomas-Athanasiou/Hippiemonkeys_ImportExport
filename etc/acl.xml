@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+    Thomas Athanasiou at Hippiemonkeys
+    Copyright (c) 2023 Hippiemonkeys (https://hippiemonkeys.com)
+    Hippiemonkeys_ImportExport
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Hippiemonkeys_Core::base">
+                    <resource id="Hippiemonkeys_Core::config">
+                        <resource id="Hippiemonkeys_ImportExport::config" title="Import" sortOrder="10" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
