@@ -42,7 +42,7 @@
          *
          * @return \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface
          */
-        function setCode(string $Code): FieldMappingInterface;
+        function setCode(string $code): FieldMappingInterface;
 
         /**
          * Gets the Source the Field Mapping aplies for

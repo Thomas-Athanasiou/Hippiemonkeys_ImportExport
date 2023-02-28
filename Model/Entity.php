@@ -47,7 +47,7 @@
             array $data = []
         )
         {
-            parent::__construct($context, $registry, null, null, $data);
+            parent::__construct($context, $registry, $data);
             $this->_importConfig = $importConfig;
             $this->_entityFactory = $entityFactory;
         }
