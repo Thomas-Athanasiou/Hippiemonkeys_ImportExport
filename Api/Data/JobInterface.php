@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -39,24 +39,64 @@
         function getCode(): string;
 
         /**
-         * Gets Entity
+         * Gets Behavior
          *
          * @access public
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\EntityInterface
+         * @return string
          */
-        function getEntity(): EntityInterface;
+        function getBehavior(): string;
 
         /**
-         * Sets Entity
+         * Sets Behavior
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\EntityInterface $entity
+         * @param string $behavior
          *
          * @return \Hippiemonkeys\ImportExport\Api\Data\JobInterface
          */
-        function setEntity(EntityInterface $entity): JobInterface;
+        function setBehavior(string $behavior): JobInterface;
+
+        /**
+         * Gets Validation Strategy
+         *
+         * @access public
+         *
+         * @return string
+         */
+        function getValidationStrategy(): string;
+
+        /**
+         * Sets Behavior
+         *
+         * @access public
+         *
+         * @param string $validationStrategy
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\JobInterface
+         */
+        function setValidationStrategy(string $validationStrategy): JobInterface;
+
+        /**
+         * Gets Allowed Error Count
+         *
+         * @access public
+         *
+         * @return int
+         */
+        function getAllowedErrorCount(): int;
+
+        /**
+         * Sets Allowed Error Count
+         *
+         * @access public
+         *
+         * @param int $allowedErrorCount
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\JobInterface
+         */
+        function setAllowedErrorCount(int $allowedErrorCount): JobInterface;
 
         /**
          * Gets Source

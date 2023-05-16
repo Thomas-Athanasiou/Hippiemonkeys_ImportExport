@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -19,27 +19,27 @@
     /**
      * @api
      */
-    interface ValueSearchResultInterface
+    interface FieldValueSearchResultInterface
     extends SearchResultsInterface
     {
         /**
-         * Gets collection of Value Mapping items
+         * Gets collection of Field Value Mapping items
          *
          * @access public
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface[]
+         * @return \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface[]
          */
         function getItems();
 
         /**
-         * Sets collection of Value Mapping items
+         * Sets collection of Field Value Mapping items
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\Zone\ValueMappingInterface[] $valueMappings
+         * @param \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface[] $fieldValueMappings
          *
-         * @return Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface
+         * @return Hippiemonkeys\ImportExport\Api\Data\FieldValueSearchResultInterface
          */
-        function setItems(array $valueMappings);
+        function setItems(array $fieldValueMappings);
     }
 ?>

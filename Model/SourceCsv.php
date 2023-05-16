@@ -12,11 +12,17 @@
 
     declare(strict_types=1);
 
-    use Magento\Framework\Component\ComponentRegistrar;
+    namespace Hippiemonkeys\ImportExport\Model;
 
-    ComponentRegistrar::register(
-        ComponentRegistrar::MODULE,
-        'Hippiemonkeys_ImportExport',
-        __DIR__
-    );
+    class SourceCsv
+    extends AbstractSource
+    {
+        /**
+         * {@inheritdoc}
+         */
+        protected function getSourceArray(): array
+        {
+            return $this->getSourceFile()->readCsv();
+        }
+    }
 ?>

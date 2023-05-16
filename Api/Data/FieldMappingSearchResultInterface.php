@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -36,7 +36,7 @@
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\Zone\FieldMappingInterface[] $fieldMappings
+         * @param \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface[] $fieldMappings
          *
          * @return Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface
          */

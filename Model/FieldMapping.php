@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -17,8 +17,11 @@
     use Hippiemonkeys\Core\Model\AbstractModel,
         Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
         Hippiemonkeys\ImportExport\Model\Spi\FieldMappingResourceInterface as ResourceInterface,
+        Hippiemonkeys\ImportExport\Api\Data\SourceInterface,
         Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface,
+        Magento\Store\Api\Data\StoreInterface,
         Magento\Store\Api\StoreRepositoryInterface,
+        Magento\Eav\Api\Data\AttributeInterface,
         Magento\Eav\Api\AttributeRepositoryInterface;
 
     class FieldMapping
@@ -26,10 +29,9 @@
     implements FieldMappingInterface
     {
         protected const
-            FIELD_SOURCE = 'source';
-
-            protected const
-            FIELD_ENTITY = 'entity';
+            FIELD_SOURCE = 'source',
+            FIELD_STORE = 'store',
+            FIELD_ATTRIBUTE = 'attribute';
 
         /**
          * Constructor
@@ -54,6 +56,9 @@
         {
             parent::__construct($context, $registry, $data);
 
+            $this->_sourceRepository = $sourceRepository;
+            $this->_storeRepository = $storeRepository;
+            $this->_attributeRepository = $attributeRepository;
         }
 
         /**
@@ -67,7 +72,7 @@
         /**
          * {@inheritdoc}
          */
-        public function setCode(string $code): FieldMappingInterface
+        public function setCode(string $code): self
         {
             return $this->setData(ResourceInterface::FIELD_CODE, $code);
         }
@@ -79,23 +84,23 @@
         {
             $source = $this->getData(static::FIELD_SOURCE);
 
-            if($entity === null)
+            if($source === null)
             {
-                $entity = $this->getEntityFactory()->create(
-                    $this->getImportConfig()->getEntities() [$this->getEntityTypeCode()]['model']
+                $source = $this->getSourceRepository()->getById(
+                    $this->getData(ResourceInterface::FIELD_SOURCE_ID)
                 );
-                $this->setData(static::FIELD_ENTITY, $entity);
+                $this->setData(static::FIELD_STORE, $source);
             }
 
-            return $entity;
+            return $source;
         }
 
         /**
          * {@inheritdoc}
          */
-        public function setSource(SourceInterface $source): FieldMappingInterface
+        public function setSource(SourceInterface $source): self
         {
-
+            return $this->setData(ResourceInterface::FIELD_SOURCE_ID, $source->getId())->setData(static::FIELD_SOURCE, $source);
         }
 
         /**
@@ -103,25 +108,26 @@
          */
         public function getStore(): StoreInterface
         {
-            $entity = $this->getData(static::FIELD_ENTITY);
+            $store = $this->getData(static::FIELD_STORE);
 
-            if($entity === null)
+            if($store === null)
             {
-                $entity = $this->getEntityFactory()->create(
-                    $this->getImportConfig()->getEntities() [$this->getEntityTypeCode()]['model']
+                $store = $this->getStoreRepository()->getById(
+                    $this->getData(ResourceInterface::FIELD_ID)
                 );
-                $this->setData(static::FIELD_ENTITY, $entity);
+                $this->setData(static::FIELD_STORE, $store);
             }
 
-            return $entity;
+            return $store;
         }
 
         /**
          * {@inheritdoc}
          */
-        public function setStore(StoreInterface $store): FieldMappingInterface
+        public function setStore(StoreInterface $store): self
         {
-
+            return $this->setData(ResourceInterface::FIELD_STORE_ID, $store->getId())
+                ->setData(static::FIELD_STORE, $store);
         }
 
         /**
@@ -129,25 +135,28 @@
          */
         public function getAttribute(): AttributeInterface
         {
-            $entity = $this->getData(static::FIELD_ENTITY);
+            $attribute = $this->getData(static::FIELD_ATTRIBUTE);
 
-            if($entity === null)
+            if($attribute === null)
             {
-                $entity = $this->getEntityFactory()->create(
-                    $this->getImportConfig()->getEntities() [$this->getEntityTypeCode()]['model']
+                $attribute = $this->getAttributeRepository()->get(
+                    $this->getData(ResourceInterface::FIELD_ATTRIBUTE_ENTITY_TYPE_ID),
+                    $this->getData(ResourceInterface::FIELD_ATTRIBUTE_CODE)
                 );
-                $this->setData(static::FIELD_ENTITY, $entity);
+                $this->setData(static::FIELD_ATTRIBUTE, $attribute);
             }
 
-            return $entity;
+            return $attribute;
         }
 
         /**
          * {@inheritdoc}
          */
-        public function setAttribute(AttributeInterface $attribute): FieldMappingInterface
+        public function setAttribute(AttributeInterface $attribute): self
         {
-
+            return $this->setData(ResourceInterface::FIELD_ATTRIBUTE_ENTITY_TYPE_ID, $attribute->getEntityTypeId())
+                ->setData(ResourceInterface::FIELD_ATTRIBUTE_CODE, $attribute->getAttributeCode())
+                ->setData(static::FIELD_ATTRIBUTE, $attribute);
         }
 
         /**
@@ -172,32 +181,45 @@
         }
 
         /**
-         * Source Repository property
+         * Store Repository property
          *
          * @access private
          *
-         * @var \Magento\Store\Api\StoreRepositoryInterface $_sourceRepository
+         * @var \Magento\Store\Api\StoreRepositoryInterface $_storeRepository
          */
-        private $_sourceRepository;
+        private $_storeRepository;
 
         /**
-         * Gets Source Repository
+         * Gets Store Repository
          *
          * @access protected
          *
-         * @return \Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface
+         * @return \Magento\Store\Api\StoreRepositoryInterface
          */
-        protected function getSourceRepository(): SourceRepositoryInterface
+        protected function getStoreRepository(): StoreRepositoryInterface
         {
-            return $this->_sourceRepository;
+            return $this->_storeRepository;
         }
 
+        /**
+         * Attribute Repository property
+         *
+         * @access private
+         *
+         * @var \Magento\Eav\Api\AttributeRepositoryInterface $_attributeRepository
+         */
+        private $_attributeRepository;
 
-        * @param \Magento\Store\Api\StoreRepositoryInterface $storeRepository
-        * @param \Magento\Eav\Api\AttributeRepositoryInterface $attributeRepository
-
-
-        StoreRepositoryInterface $storeRepository,
-        AttributeRepositoryInterface $attributeRepository,
+        /**
+         * Gets Attribute Repository
+         *
+         * @access protected
+         *
+         * @return \Magento\Eav\Api\AttributeRepositoryInterface
+         */
+        protected function getAttributeRepository(): AttributeRepositoryInterface
+        {
+            return $this->_attributeRepository;
+        }
     }
 ?>

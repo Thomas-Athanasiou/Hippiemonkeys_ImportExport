@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -35,7 +35,15 @@
          */
         public function loadSourceById(SourceInterface $source, $id): SourceResourceInterface
         {
-            return $this->loadModel($source, $id, static::FIELD_ID);
+            return $this->loadModelById($source, $id);
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function loadSourceByCode(SourceInterface $source, string $code): SourceResourceInterface
+        {
+            return $this->loadModel($source, $code, static::FIELD_CODE);
         }
 
         /**

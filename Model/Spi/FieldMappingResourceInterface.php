@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -14,52 +14,54 @@
 
     namespace Hippiemonkeys\ImportExport\Model\Spi;
 
-    use Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface,
+    use Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
         Hippiemonkeys\Core\Model\Spi\ModelResourceInterface;
 
     /**
-     * Value Mapping Resource interface
+     * Field Mapping Resource interface
      */
-    interface ValueMappingResourceInterface
+    interface FieldMappingResourceInterface
     extends ModelResourceInterface
     {
         const
             FIELD_CODE = 'code',
+            FIELD_SOURCE_ID = 'source_id',
             FIELD_STORE_ID = 'store_id',
-            FIELD_ATTRIBUTE_ID = 'attribute_id';
+            FIELD_ATTRIBUTE_CODE = 'attribute_code',
+            FIELD_ATTRIBUTE_ENTITY_TYPE_ID = 'attribute_entity_type_id';
 
         /**
-         * Saves Value Mapping data
+         * Saves Field Mapping data
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface $valueMapping
+         * @param \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface $fieldMapping
          *
          * @return $this
          */
-        function saveValueMapping(ValueMappingInterface $valueMapping): ValueMappingResourceInterface;
+        function saveFieldMapping(FieldMappingInterface $fieldMapping): FieldMappingResourceInterface;
 
         /**
-         * Loads a Value Mapping by its Id
+         * Loads a Field Mapping by its Id
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface $valueMapping
+         * @param \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface $fieldMapping
          * @param mixed $id
          *
          * @return $this
          */
-        function loadValueMappingById(ValueMappingInterface $valueMapping, $id): ValueMappingResourceInterface;
+        function loadFieldMappingById(FieldMappingInterface $fieldMapping, $id): FieldMappingResourceInterface;
 
         /**
-         * Deletes the Value Mapping
+         * Deletes the Field Mapping
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface $valueMapping
+         * @param \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface $fieldMapping
          *
          * @return bool
          */
-        function deleteValueMapping(ValueMappingInterface $valueMapping): bool;
+        function deleteFieldMapping(FieldMappingInterface $fieldMapping): bool;
     }
 ?>

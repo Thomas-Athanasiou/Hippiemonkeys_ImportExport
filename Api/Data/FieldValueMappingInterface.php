@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -19,7 +19,7 @@
     /**
      * @api
      */
-    interface ValueMappingInterface
+    interface FieldValueMappingInterface
     extends ModelInterface
     {
         /**
@@ -38,9 +38,9 @@
          *
          * @param string $sourceValue
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface
+         * @return \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface
          */
-        function setSourceValue(string $sourceValue): ValueMappingInterface;
+        function setSourceValue(string $sourceValue): FieldValueMappingInterface;
 
         /**
          * Gets Destination Value
@@ -58,9 +58,9 @@
          *
          * @param string $destinationValue
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface
+         * @return \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface
          */
-        function setDestinationValue(string $destinationValue): ValueMappingInterface;
+        function setDestinationValue(string $destinationValue): FieldValueMappingInterface;
 
         /**
          * Gets Field Mapping
@@ -78,8 +78,8 @@
          *
          * @param \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface $fieldMapping
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\ValueMappingInterface
+         * @return \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface
          */
-        function setFieldMapping(FieldMappingInterface $fieldMapping): ValueMappingInterface;
+        function setFieldMapping(FieldMappingInterface $fieldMapping): FieldValueMappingInterface;
     }
 ?>

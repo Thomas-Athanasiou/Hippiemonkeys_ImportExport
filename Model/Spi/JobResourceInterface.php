@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -25,8 +25,11 @@
     {
         const
             FIELD_CODE = 'code',
-            FIELD_ENTITY_ID = 'entity_id',
-            FIELD_SOURCE_ID = 'source_id';
+            FIELD_SOURCE_ID = 'source_id',
+            FIELD_ENTITY_TYPE_CODE = 'entity_type_code',
+            FIELD_BEHAVIOR = 'behavior',
+            FIELD_VALIDATION_STRATEGY = 'validation_strategy',
+            FIELD_ALLOWED_ERROR_COUNT = 'allowed_error_count';
 
         /**
          * Saves Job data

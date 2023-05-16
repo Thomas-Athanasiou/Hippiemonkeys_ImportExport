@@ -15,35 +15,35 @@
     namespace Hippiemonkeys\ImportExport\Model\ResourceModel;
 
     use Hippiemonkeys\Core\Model\ResourceModel\AbstractTableResource as AbstractResource,
-        Hippiemonkeys\ImportExport\Api\Data\JobInterface,
-        Hippiemonkeys\ImportExport\Model\Spi\JobResourceInterface;
+        Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
+        Hippiemonkeys\ImportExport\Model\Spi\FieldMappingResourceInterface;
 
-    class Job
+    class FieldMapping
     extends AbstractResource
-    implements JobResourceInterface
+    implements FieldMappingResourceInterface
     {
         /**
          * {@inheritdoc}
          */
-        public function saveJob(JobInterface $job): JobResourceInterface
+        public function saveFieldMapping(FieldMappingInterface $fieldMapping): FieldMappingResourceInterface
         {
-            return $this->saveModel($job);
+            return $this->saveModel($fieldMapping);
         }
 
         /**
          * {@inheritdoc}
          */
-        public function loadJobById(JobInterface $job, $id): JobResourceInterface
+        public function loadFieldMappingById(FieldMappingInterface $fieldMapping, $id): FieldMappingResourceInterface
         {
-            return $this->loadModelById($job, $id);
+            return $this->loadModel($fieldMapping, $id, static::FIELD_ID);
         }
 
         /**
          * {@inheritdoc}
          */
-        public function deleteJob(JobInterface $job): bool
+        public function deleteFieldMapping(FieldMappingInterface $fieldMapping): bool
         {
-            return $this->deleteModel($job);
+            return $this->deleteModel($fieldMapping);
         }
     }
 ?>

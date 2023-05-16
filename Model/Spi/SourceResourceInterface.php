@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2023 Hippiemonkeys Web Inteligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -24,7 +24,10 @@
     extends ModelResourceInterface
     {
         const
-            FIELD_CODE = 'code';
+            FIELD_CODE = 'code',
+            FIELD_TYPE = 'type',
+            FIELD_SOURCE_FILE_LOCATION = 'source_file_location',
+            FIELD_DESTINATION_FILE_LOCATION = 'destination_file_location';
 
         /**
          * Saves Source data

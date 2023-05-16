@@ -12,13 +12,21 @@
 
     declare(strict_types=1);
 
-    namespace Hippiemonkeys\ImportExport\Exception;
+    namespace Hippiemonkeys\ImportExport\Model\Import;
 
-    use Magento\Framework\Exception\LocalizedException;
+    use Magento\ImportExport\Model\Import\Adapter as ParentAdapter;
 
-    class NoSuchEntityException
-    extends LocalizedException
+    class Adapter
+    extends ParentAdapter
     {
-
+        /**
+         * {@inheritdoc}
+         *
+         * @todo add support for xml files
+         */
+        public static function factory($type, $directory, $source, $options = null)
+        {
+            return parent::factory($type, $directory, $source, $options);
+        }
     }
 ?>
