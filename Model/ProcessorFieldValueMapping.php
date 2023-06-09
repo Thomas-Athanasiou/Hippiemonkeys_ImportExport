@@ -61,26 +61,7 @@
             return $dataArray;
         }
 
-        /**
-         * Logger property
-         *
-         * @access protected
-         *
-         * @var \Psr\Log\LoggerInterface $_logger
-         */
-        private $_logger;
 
-        /**
-         * Gets Logger
-         *
-         * @access protected
-         *
-         * @return \Psr\Log\LoggerInterface
-         */
-        protected function getLogger(): LoggerInterface
-        {
-            return $this->_logger;
-        }
 
         /**
          * FieldValue

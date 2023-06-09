@@ -17,7 +17,7 @@
     use Hippiemonkeys\Core\Model\AbstractModel,
         Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
         Hippiemonkeys\ImportExport\Model\Spi\FieldMappingResourceInterface as ResourceInterface,
-        Hippiemonkeys\ImportExport\Api\Data\SourceInterface,
+        Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface,
         Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface,
         Magento\Framework\Registry,
         Magento\Framework\Model\Context,
@@ -31,7 +31,7 @@
     implements FieldMappingInterface
     {
         protected const
-            FIELD_SOURCE = 'source',
+            FIELD_PROCESSOR = 'processor',
             FIELD_STORE = 'store',
             FIELD_ATTRIBUTE = 'attribute';
 
@@ -82,27 +82,27 @@
         /**
          * {@inheritdoc}
          */
-        public function getSource(): SourceInterface
+        public function getProcessor(): ProcessorInterface
         {
-            $source = $this->getData(static::FIELD_SOURCE);
+            $processor = $this->getData(static::FIELD_PROCESSOR);
 
-            if($source === null)
+            if($processor === null)
             {
-                $source = $this->getProcessorRepository()->getById(
-                    $this->getData(ResourceInterface::FIELD_SOURCE_ID)
+                $processor = $this->getProcessorRepository()->getById(
+                    $this->getData(ResourceInterface::FIELD_PROCESSOR_ID)
                 );
-                $this->setData(static::FIELD_STORE, $source);
+                $this->setData(static::FIELD_PROCESSOR, $processor);
             }
 
-            return $source;
+            return $processor;
         }
 
         /**
          * {@inheritdoc}
          */
-        public function setSource(SourceInterface $source): self
+        public function setProcessor(ProcessorInterface $processor): self
         {
-            return $this->setData(ResourceInterface::FIELD_SOURCE_ID, $source->getId())->setData(static::FIELD_SOURCE, $source);
+            return $this->setData(ResourceInterface::FIELD_PROCESSOR_ID, $processor->getId())->setData(static::FIELD_PROCESSOR, $processor);
         }
 
         /**

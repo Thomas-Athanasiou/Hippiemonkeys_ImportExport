@@ -27,6 +27,26 @@
          *
          * @access public
          *
+         * @return string
+         */
+        function getCode(): string;
+
+        /**
+         * Sets Code
+         *
+         * @access public
+         *
+         * @param string $code
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface
+         */
+        function setCode(string $code): ProcessorInterface;
+
+        /**
+         * Gets Code
+         *
+         * @access public
+         *
          * @param array $dataArray
          *
          * @return array

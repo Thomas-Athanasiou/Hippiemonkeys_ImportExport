@@ -14,15 +14,12 @@
 
     namespace Hippiemonkeys\ImportExport\Model;
 
-    use Hippiemonkeys\Core\Model\AbstractModel,
-        Psr\Log\LoggerInterface,
+    use Psr\Log\LoggerInterface,
         Magento\Framework\Model\Context,
-        Magento\Framework\Registry,
-        Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface;
+        Magento\Framework\Registry;
 
     class ProcessorComposite
-    extends AbstractModel
-    implements ProcessorInterface
+    extends ProcessorAbstract
     {
         /**
          * Constructor

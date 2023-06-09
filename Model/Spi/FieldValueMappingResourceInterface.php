@@ -35,7 +35,7 @@
          *
          * @param \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface $FieldValueMapping
          *
-         * @return $this
+         * @return \Hippiemonkeys\ImportExport\Model\Spi\FieldValueMappingResourceInterface
          */
         function saveFieldValueMapping(FieldValueMappingInterface $FieldValueMapping): FieldValueMappingResourceInterface;
 
@@ -47,7 +47,7 @@
          * @param \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface $FieldValueMapping
          * @param mixed $id
          *
-         * @return $this
+         * @return \Hippiemonkeys\ImportExport\Model\Spi\FieldValueMappingResourceInterface
          */
         function loadFieldValueMappingById(FieldValueMappingInterface $FieldValueMapping, $id): FieldValueMappingResourceInterface;
 

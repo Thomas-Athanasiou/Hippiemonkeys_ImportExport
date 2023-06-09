@@ -15,6 +15,7 @@
     namespace Hippiemonkeys\ImportExport\Api;
 
     use Magento\Framework\Api\SearchCriteriaInterface,
+        Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface,
         Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
         Hippiemonkeys\ImportExport\Api\Data\FieldMappingSearchResultInterface;
 
@@ -24,7 +25,7 @@
     interface FieldMappingRepositoryInterface
     {
         /**
-         * Gets Field Mapping from the persitent storage by its Id
+         * Gets Field Mapping from the persistent storage by its Id
          *
          * @access public
          *
@@ -45,8 +46,20 @@
          */
         function getList(SearchCriteriaInterface $searchCriteria): FieldMappingSearchResultInterface;
 
+
         /**
-         * Saves Field Mapping to the persitent storage
+         * Gets list by Processor
+         *
+         * @access public
+         *
+         * @param \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface $processor
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\FieldMappingSearchResultInterface
+         */
+        function getListByProcessor(ProcessorInterface $processor): FieldMappingSearchResultInterface;
+
+        /**
+         * Saves Field Mapping to the persistent storage
          *
          * @access public
          *
@@ -57,7 +70,7 @@
         function save(FieldMappingInterface $FieldMapping): FieldMappingInterface;
 
         /**
-         * Deletes Field Mapping from the persitent storage
+         * Deletes Field Mapping from the persistent storage
          *
          * @access public
          *

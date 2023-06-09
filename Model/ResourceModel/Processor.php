@@ -5,7 +5,7 @@
      * @author Thomas Athanasiou {thomas@hippiemonkeys.com}
      * @link https://hippiemonkeys.com
      * @link https://github.com/Thomas-Athanasiou
-     * @copyright Copyright (c) 2022 Hippiemonkeys Web Intelligence EE All Rights Reserved.
+     * @copyright Copyright (c) 2023 Hippiemonkeys Web Intelligence EE All Rights Reserved.
      * @license http://www.gnu.org/licenses/ GNU General Public License, version 3
      * @package Hippiemonkeys_ImportExport
      */
@@ -15,35 +15,35 @@
     namespace Hippiemonkeys\ImportExport\Model\ResourceModel;
 
     use Hippiemonkeys\Core\Model\ResourceModel\AbstractTableResource as AbstractResource,
-        Hippiemonkeys\ImportExport\Api\Data\EntityInterface,
-        Hippiemonkeys\ImportExport\Model\Spi\EntityResourceInterface;
+        Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface,
+        Hippiemonkeys\ImportExport\Model\Spi\ProcessorResourceInterface;
 
-    class Entity
+    class Processor
     extends AbstractResource
-    implements EntityResourceInterface
+    implements ProcessorResourceInterface
     {
         /**
          * {@inheritdoc}
          */
-        public function saveEntity(EntityInterface $entity): EntityResourceInterface
+        public function saveProcessor(ProcessorInterface $processor): ProcessorResourceInterface
         {
-            return $this->saveModel($entity);
+            return $this->saveModel($processor);
         }
 
         /**
          * {@inheritdoc}
          */
-        public function loadEntityById(EntityInterface $entity, $id): EntityResourceInterface
+        public function loadProcessorById(ProcessorInterface $processor, $id): ProcessorResourceInterface
         {
-            return $this->loadModel($entity, $id, static::FIELD_ID);
+            return $this->loadModelById($processor, $id);
         }
 
         /**
          * {@inheritdoc}
          */
-        public function deleteEntity(EntityInterface $entity): bool
+        public function deleteProcessor(ProcessorInterface $processor): bool
         {
-            return $this->deleteModel($entity);
+            return $this->deleteModel($processor);
         }
     }
 ?>

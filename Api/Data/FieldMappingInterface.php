@@ -45,24 +45,24 @@
         function setCode(string $code): FieldMappingInterface;
 
         /**
-         * Gets the Source the Field Mapping applies for
+         * Gets the Processor the Field Mapping applies for
          *
          * @access public
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\SourceInterface
+         * @return \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface
          */
-        function getSource(): SourceInterface;
+        function getProcessor(): ProcessorInterface;
 
         /**
-         * Sets the Source the Field Mapping applies for
+         * Sets the Processor the Field Mapping applies for
          *
          * @access public
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\SourceInterface $source
+         * @param \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface $processor
          *
          * @return \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface
          */
-        function setSource(SourceInterface $source): FieldMappingInterface;
+        function setProcessor(ProcessorInterface $processor): FieldMappingInterface;
 
         /**
          * Gets the Store the Field Mapping applies for

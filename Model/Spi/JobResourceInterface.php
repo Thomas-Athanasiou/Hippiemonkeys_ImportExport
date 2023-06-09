@@ -39,7 +39,7 @@
          *
          * @param \Hippiemonkeys\ImportExport\Api\Data\JobInterface $job
          *
-         * @return $this
+         * @return \Hippiemonkeys\ImportExport\Model\Spi\JobResourceInterface
          */
         function saveJob(JobInterface $job): JobResourceInterface;
 
@@ -51,9 +51,21 @@
          * @param \Hippiemonkeys\ImportExport\Api\Data\JobInterface $job
          * @param mixed $id
          *
-         * @return $this
+         *@return \Hippiemonkeys\ImportExport\Model\Spi\JobResourceInterface
          */
         function loadJobById(JobInterface $job, $id): JobResourceInterface;
+
+        /**
+         * Loads a Job by its Code
+         *
+         * @access public
+         *
+         * @param \Hippiemonkeys\ImportExport\Api\Data\JobInterface $job
+         * @param string $code
+         *
+         * @return \Hippiemonkeys\ImportExport\Model\Spi\JobResourceInterface
+         */
+        function loadJobByCode(JobInterface $job, string $code): JobResourceInterface;
 
         /**
          * Deletes the Job

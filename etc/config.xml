@@ -6,10 +6,10 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <Hippiemonkeys_ImportExport>
+        <Hippiemonkeys_importexport>
             <general>
                 <active>1</active>
             </general>
-        </Hippiemonkeys_ImportExport>
+        </Hippiemonkeys_importexport>
     </default>
 </config>
