@@ -26,6 +26,7 @@
         const
             FIELD_CODE = 'code',
             FIELD_SOURCE_ID = 'source_id',
+            FIELD_PROCESSOR_ID = 'processor_id',
             FIELD_ENTITY_TYPE_CODE = 'entity_type_code',
             FIELD_BEHAVIOR = 'behavior',
             FIELD_VALIDATION_STRATEGY = 'validation_strategy',

@@ -14,10 +14,7 @@
 
     namespace Hippiemonkeys\ImportExport\Api\Data;
 
-    use Hippiemonkeys\Core\Api\Data\ModelInterface,
-        Magento\ImportExport\Model\Import\AbstractSource,
-        Magento\Framework\Filesystem\File\ReadInterface,
-        Magento\Framework\Filesystem\File\WriteInterface;
+    use Hippiemonkeys\Core\Api\Data\ModelInterface;
 
     /**
      * @api
@@ -46,22 +43,22 @@
         function setCode(string $code): SourceInterface;
 
         /**
-         * Updates Source Data
-         *
-         * @access public
-         *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\SourceInterface
-         */
-        function updateData(): SourceInterface;
-
-        /**
-         * Gets Source File
+         * Gets Type
          *
          * @access public
          *
          * @return string
          */
-        function getSourceLocation(): string;
+        function getType(): string;
+
+        /**
+         * Gets Resource Locator
+         *
+         * @access public
+         *
+         * @return string
+         */
+        function getResourceLocator(): string;
 
         /**
          * Sets Source File
@@ -70,15 +67,15 @@
          *
          * @return string
          */
-        function setLocation(ReadInterface $sourceFile): SourceInterface;
+        function setResourceLocator(string $resourceLocator): SourceInterface;
 
         /**
-         * Gets Import Source Instance with the required parameters set
+         * Gets Data Array
          *
          * @access public
          *
-         * @return \Magento\ImportExport\Model\Import\AbstractSource
+         * @return array
          */
-        function getImportSource(): AbstractSource;
+        function getDataArray(): array;
     }
 ?>

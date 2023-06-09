@@ -38,14 +38,14 @@
          *
          * @access public
          *
-         * @param string $Code
+         * @param string $code
          *
          * @return \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface
          */
         function setCode(string $code): FieldMappingInterface;
 
         /**
-         * Gets the Source the Field Mapping aplies for
+         * Gets the Source the Field Mapping applies for
          *
          * @access public
          *
@@ -54,7 +54,7 @@
         function getSource(): SourceInterface;
 
         /**
-         * Sets the Source the Field Mapping aplies for
+         * Sets the Source the Field Mapping applies for
          *
          * @access public
          *
@@ -65,7 +65,7 @@
         function setSource(SourceInterface $source): FieldMappingInterface;
 
         /**
-         * Gets the Store the Field Mapping aplies for
+         * Gets the Store the Field Mapping applies for
          *
          * @access public
          *
@@ -74,7 +74,7 @@
         function getStore(): StoreInterface;
 
         /**
-         * Sets the Store the Field Mapping aplies for
+         * Sets the Store the Field Mapping applies for
          *
          * @access public
          *
@@ -85,7 +85,7 @@
         function setStore(StoreInterface $store): FieldMappingInterface;
 
         /**
-         * Gets the Attribute the Field Mapping aplies for
+         * Gets the Attribute the Field Mapping applies for
          *
          * @access public
          *
@@ -94,11 +94,11 @@
         function getAttribute(): AttributeInterface;
 
         /**
-         * Sets the Attribute the Field Mapping aplies for
+         * Sets the Attribute the Field Mapping applies for
          *
          * @access public
          *
-         * @param \Magento\Eav\Api\Data\AttributeInterface $store
+         * @param \Magento\Eav\Api\Data\AttributeInterface $attribute
          *
          * @return \Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface
          */

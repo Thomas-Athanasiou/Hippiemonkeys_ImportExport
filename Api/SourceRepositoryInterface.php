@@ -15,8 +15,8 @@
     namespace Hippiemonkeys\ImportExport\Api;
 
     use Magento\Framework\Api\SearchCriteriaInterface,
-        Hippiemonkeys\ImportExport\Api\Data\Source\SourceInterface,
-        Hippiemonkeys\ImportExport\Api\Data\Source\SourceSearchResultInterface;
+        Hippiemonkeys\ImportExport\Api\Data\SourceInterface,
+        Hippiemonkeys\ImportExport\Api\Data\SourceSearchResultInterface;
 
     /**
      * @api
@@ -24,7 +24,7 @@
     interface SourceRepositoryInterface
     {
         /**
-         * Gets Source from the persitent storage by its Id
+         * Gets Source from the persistent storage by its Id
          *
          * @access public
          *
@@ -35,7 +35,7 @@
         function getById($id): SourceInterface;
 
         /**
-         * Gets Source from the persitent storage by its Code
+         * Gets Source from the persistent storage by its Code
          *
          * @access public
          *
@@ -57,7 +57,7 @@
         function getList(SearchCriteriaInterface $searchCriteria): SourceSearchResultInterface;
 
         /**
-         * Saves Source to the persitent storage
+         * Saves Source to the persistent storage
          *
          * @access public
          *
@@ -68,7 +68,7 @@
         function save(SourceInterface $source): SourceInterface;
 
         /**
-         * Deletes Source from the persitent storage
+         * Deletes Source from the persistent storage
          *
          * @access public
          *

@@ -15,30 +15,17 @@
     namespace Hippiemonkeys\ImportExport\Model;
 
     use Hippiemonkeys\Core\Model\AbstractModel,
-        Hippiemonkeys\ImportExport\Model\Import\Adapter,
         Hippiemonkeys\ImportExport\Api\Data\SourceInterface,
         Hippiemonkeys\ImportExport\Model\Spi\SourceResourceInterface as ResourceInterface,
         Magento\Framework\Registry,
         Magento\Framework\Model\Context,
-        Magento\Framework\Filesystem\Directory\WriteInterface as DirectoryWriteInterface,
         Magento\Framework\Module\Dir as ModuleDirectory,
-        Magento\Framework\Filesystem,
-        Magento\Framework\Filesystem\DriverPool,
-        Magento\Framework\Filesystem\File\ReadInterface,
-        Magento\Framework\Filesystem\File\WriteInterface;
+        Magento\Framework\Filesystem;
 
     abstract class AbstractSource
     extends AbstractModel
     implements SourceInterface
     {
-        protected const
-            FIELD_SOURCE = 'source',
-
-            FILE_NAME_FORMAT = 'import_%s.%s',
-
-            MODULE_NAME = 'Hippiemonkeys_ImportExport',
-            MODULE_IMPORT_DIR = 'Import';
-
         /**
          * Constructor
          *
@@ -83,202 +70,29 @@
         /**
          * {@inheritdoc}
          */
-        public function updateData(): self
+        public function getResourceLocator(): string
         {
-            $this->getDirectory()->writeFile(
-                $this->getFilename(),
-                $this->arrayToCsv($this->getDestinationArray(), ',', '', '"', "\n")
-            );
-
-            return $this;
-        }
-
-        /**
-         * Gets Destination Array
-         *
-         * @access protected
-         *
-         * @return array
-         */
-        protected function getDestinationArray(): array
-        {
-            return $this->createDestinationArrayFromSourceArray($this->getSourceArray());
+            return $this->getData(ResourceInterface::FIELD_CODE);
         }
 
         /**
          * {@inheritdoc}
          */
-        public function getSourceFile(): ReadInterface
+        public function setResourceLocator(string $resourceLocator): SourceInterface
         {
-            return $this->getData(ResourceInterface::FIELD_SOURCE_FILE_LOCATION);
+            return $this->setData(ResourceInterface::FIELD_CODE, $resourceLocator);
         }
 
         /**
-         * {@inheritdoc}
-         */
-        public function setSourceFile(ReadInterface $sourceFile): SourceInterface
-        {
-            return $this->setData(ResourceInterface::FIELD_SOURCE_FILE_LOCATION, $sourceFile->getFileName());
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function getDestinationFile(): WriteInterface
-        {
-
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function setDestinationFile(WriteInterface $destinationFile): SourceInterface
-        {
-
-        }
-
-        /**
-         * Gets Source Array
-         *
-         * @abstract
-         *
-         * @access protected
-         *
-         * @return array
-         */
-        abstract protected function getSourceArray(): array;
-
-        /**
-         * {@inheritdoc}
-         */
-        public function getImportSource(): AbstractSource
-        {
-            return Adapter::factory(
-                $this->getType(),
-                $this->getDirectory(),
-                $this->getFilename()
-            );
-        }
-
-        /**
-         * Gets Type
+         * Gets Data String
          *
          * @access protected
          *
          * @return string
          */
-        protected function getType(): string
+        protected function getDataString(): string
         {
-            return $this->getData(ResourceInterface::FIELD_TYPE);
-        }
-
-        /**
-         * Sets Type
-         *
-         * @access public
-         *
-         * @param string $type
-         *
-         * @return \Hippiemonkeys\ImportExport\Model\Source
-         */
-        protected function setType(string $type): self
-        {
-            return $this->setData(ResourceInterface::FIELD_TYPE, $type);
-        }
-
-
-        /**
-         * Gets Directory
-         *
-         * @access protected
-         *
-         * @return \Magento\Framework\Filesystem\Directory\WriteInterface
-         */
-        protected function getDirectory(): DirectoryWriteInterface
-        {
-            return $this->getFilesystem()->getDirectoryWrite(
-                \sprintf(
-                    '^%s/%s',
-                    $this->getModuleDirectory()->getDir(static::MODULE_NAME),
-                    static::MODULE_IMPORT_DIR
-                ),
-                DriverPool::FILE
-            );
-        }
-
-        /**
-         * Module Directory property
-         *
-         * @access private
-         *
-         * @var \Magento\Framework\Module\Dir $_moduleDirectory
-         */
-        private $_moduleDirectory;
-
-        /**
-         * Gets Module Directory
-         *
-         * @access protected
-         *
-         * @return  \Magento\Framework\Module\Dir
-         */
-        protected function getModuleDirectory(): ModuleDirectory
-        {
-            return $this->_moduleDirectory;
-        }
-
-        /**
-         * Filesystem property
-         *
-         * @access private
-         *
-         * @var \Magento\Framework\Filesystem $_filesystem
-         */
-        private $_filesystem;
-
-        /**
-         * Gets Filesystem
-         *
-         * @access protected
-         *
-         * @return  \Magento\Framework\Filesystem
-         */
-        protected function getFilesystem(): Filesystem
-        {
-            return $this->_filesystem;
-        }
-
-        /**
-         * Gets File Name
-         *
-         * @access protected
-         *
-         * @return string
-         */
-        protected function getFilename(): string
-        {
-            return \sprintf(
-                static::FILE_NAME_FORMAT,
-                $this->getCode(),
-                $this->getType()
-            );
-        }
-
-        /**
-         * Converts the input array to a csv string representation
-         *
-         * @access protected
-         *
-         * @param array[] $inputArray
-         */
-        protected function arrayToCsv(array $array, string $delimiter, string $enclosure, string $escape, string $endOfLine)
-        {
-            $filePointer = fopen('php://memory', 'r+b');
-            fputcsv($filePointer, $array, $delimiter, $enclosure, $escape, $endOfLine);
-            rewind($filePointer);
-            $data = rtrim(stream_get_contents($filePointer), "\n");
-            fclose($filePointer);
-            return $data;
+            return file_get_contents($this->getResourceLocator(), false, null, 0, null);
         }
     }
 ?>

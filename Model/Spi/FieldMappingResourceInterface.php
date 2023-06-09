@@ -25,7 +25,7 @@
     {
         const
             FIELD_CODE = 'code',
-            FIELD_SOURCE_ID = 'source_id',
+            FIELD_PROCESSOR_ID = 'processor_id',
             FIELD_STORE_ID = 'store_id',
             FIELD_ATTRIBUTE_CODE = 'attribute_code',
             FIELD_ATTRIBUTE_ENTITY_TYPE_ID = 'attribute_entity_type_id';

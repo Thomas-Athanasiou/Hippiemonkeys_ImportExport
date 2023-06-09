@@ -17,12 +17,73 @@
     class SourceCsv
     extends AbstractSource
     {
+        private const TYPE = 'csv';
+
         /**
          * {@inheritdoc}
          */
-        protected function getSourceArray(): array
+        public function getType(): string
         {
-            return $this->getSourceFile()->readCsv();
+            return self::TYPE;
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function getDataArray(): array
+        {
+            $separator = $this->getSeparator();
+            $enclosure = $this->getEnclosure();
+            $escape = $this->getEscape();
+
+            $csv = array_map(
+                function (string $csvRowString) use ($separator, $enclosure, $escape): array
+                {
+                    return str_getcsv($csvRowString, $separator, $enclosure, $escape);
+                },
+                explode($this->getEol(), $this->getDataString())
+            );
+
+            return $this->formatCsvToAssociativeArray($csv);
+        }
+
+        /**
+         * Formats Csv to Associative Array
+         *
+         * @access protected
+         *
+         * @param array $csv
+         *
+         * @return array
+         */
+        protected function formatCsvToAssociativeArray(array $csv): array
+        {
+            $rowKeys = array_keys($csv);
+            $rowKeyIndex = 0;
+
+            $columnMap = [];
+
+            foreach ($csv[$rowKeys[$rowKeyIndex++]] as $columnIndex => $columnName)
+            {
+                $columnMap[$columnIndex] = $columnName;
+            }
+
+            $result = [];
+
+            $rowKeyCount = count($rowKeys);
+            while($rowKeyIndex < $rowKeyCount)
+            {
+                $row = $csv[$rowKeys[$rowKeyIndex]];
+                $result[$rowKeyIndex] = [];
+                foreach ($row as $columnIndex => $value)
+                {
+                    $result[$rowKeyIndex][$columnMap[$columnIndex]] = $value;
+                }
+
+                $rowKeyIndex++;
+            }
+
+            return $result;
         }
     }
 ?>

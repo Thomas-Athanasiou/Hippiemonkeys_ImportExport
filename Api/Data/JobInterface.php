@@ -117,5 +117,25 @@
          * @return \Hippiemonkeys\ImportExport\Api\Data\JobInterface
          */
         function setSource(SourceInterface $source): JobInterface;
+
+        /**
+         * Gets Processor
+         *
+         * @access public
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface
+         */
+        function getProcessor(): ProcessorInterface;
+
+        /**
+         * Sets Processor
+         *
+         * @access public
+         *
+         * @param \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface $processor
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\JobInterface
+         */
+        function setProcessor(ProcessorInterface $processor): JobInterface;
     }
 ?>

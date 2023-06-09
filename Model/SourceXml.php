@@ -15,6 +15,7 @@
     namespace Hippiemonkeys\ImportExport\Model;
 
     use SimpleXMLElement,
+        Magento\Framework\Registry,
         Magento\Framework\Model\Context,
         Magento\Framework\Module\Dir as ModuleDirectory,
         Magento\Framework\Filesystem,
@@ -23,6 +24,7 @@
     class SourceXml
     extends AbstractSource
     {
+        private const TYPE = 'xml';
 
         /**
          * Constructor
@@ -51,9 +53,17 @@
         /**
          * {@inheritdoc}
          */
-        protected function getSourceArray(): array
+        public function getType(): string
         {
-            return $this->getXmlConverter()->xmlToAssoc(new SimpleXMLElement($this->getSourceFile()->readAll()));
+            return self::TYPE;
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function getDataArray(): array
+        {
+            return $this->getXmlConverter()->xmlToAssoc(new SimpleXMLElement($this->getDataString()));
         }
 
         /**

@@ -7,7 +7,8 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="hippiemonkeys_importexport_job" resource="default" engine="innodb" comment="Hippiemonkeys Import Export - Entity">
         <column xsi:type="int" name="id" nullable="false" unsigned="true" identity="true" comment="ID" />
-        <column xsi:type="int" name="source_id" nullable="false" unsigned="true" identity="true" comment="ID" />
+        <column xsi:type="int" name="source_id" nullable="false" unsigned="true" identity="true" comment="Source ID" />
+        <column xsi:type="int" name="processor_id" nullable="false" unsigned="true" identity="true" comment="Processor ID" />
         <column xsi:type="varchar" name="code" length="32" nullable="false" comment="Code" />
         <column xsi:type="varchar" name="entity_type_code" length="32" nullable="false" comment="Entity Type Code" />
         <column xsi:type="varchar" name="behavior" length="16" nullable="false" comment="Behavior" />
@@ -22,6 +23,15 @@
             table="hippiemonkeys_importexport_job"
             column="source_id"
             referenceTable="hippiemonkeys_importexport_source"
+            referenceColumn="id"
+            onDelete="CASCADE"
+        />
+        <constraint
+            xsi:type="foreign"
+            referenceId="HIPPIEMONKEYS_IMPORTEXPORT_JOB_PROCESSOR_ID_FK"
+            table="hippiemonkeys_importexport_job"
+            column="processor_id"
+            referenceTable="hippiemonkeys_importexport_processor"
             referenceColumn="id"
             onDelete="CASCADE"
         />

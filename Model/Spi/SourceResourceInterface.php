@@ -26,8 +26,7 @@
         const
             FIELD_CODE = 'code',
             FIELD_TYPE = 'type',
-            FIELD_SOURCE_FILE_LOCATION = 'source_file_location',
-            FIELD_DESTINATION_FILE_LOCATION = 'destination_file_location';
+            FIELD_SOURCE_FILE_LOCATION = 'resource_locator';
 
         /**
          * Saves Source data
@@ -51,18 +50,6 @@
          * @return \Hippiemonkeys\ImportExport\Model\Spi\SourceResourceInterface
          */
         function loadSourceById(SourceInterface $source, $id): SourceResourceInterface;
-
-        /**
-         * Loads a Source by its Code
-         *
-         * @access public
-         *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\SourceInterface $source
-         * @param string $code
-         *
-         * @return \Hippiemonkeys\ImportExport\Model\Spi\SourceResourceInterface
-         */
-        function loadSourceByCode(SourceInterface $source, string $code): SourceResourceInterface;
 
         /**
          * Loads a Source by its Code

@@ -19,27 +19,25 @@
     /**
      * @api
      */
-    interface FieldValueMappingSearchResultInterface
+    interface ProcessorSearchResultInterface
     extends SearchResultsInterface
     {
         /**
-         * Gets collection of Field Value Mapping items
+         * Gets collection of Processor items
          *
          * @access public
          *
-         * @return \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface[]
+         * @return \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface[]
          */
         function getItems();
 
         /**
-         * Sets collection of Field Value Mapping items
+         * Sets collection of Import items
          *
-         * @access public
+         * @param \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface[] $processors
          *
-         * @param \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface[] $fieldValueMappings
-         *
-         * @return Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingSearchResultInterface
+         * @return \Hippiemonkeys\ImportExport\Api\Data\ProcessorSearchResultInterface
          */
-        function setItems(array $fieldValueMappings);
+        function setItems(array $processors);
     }
 ?>

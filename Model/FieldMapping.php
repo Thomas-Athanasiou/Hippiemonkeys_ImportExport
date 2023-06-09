@@ -18,7 +18,9 @@
         Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
         Hippiemonkeys\ImportExport\Model\Spi\FieldMappingResourceInterface as ResourceInterface,
         Hippiemonkeys\ImportExport\Api\Data\SourceInterface,
-        Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface,
+        Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface,
+        Magento\Framework\Registry,
+        Magento\Framework\Model\Context,
         Magento\Store\Api\Data\StoreInterface,
         Magento\Store\Api\StoreRepositoryInterface,
         Magento\Eav\Api\Data\AttributeInterface,
@@ -40,7 +42,7 @@
          *
          * @param \Magento\Framework\Model\Context $context
          * @param \Magento\Framework\Registry $registry
-         * @param \Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface $sourceRepository
+         * @param \Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface $processorRepository
          * @param \Magento\Store\Api\StoreRepositoryInterface $storeRepository
          * @param \Magento\Eav\Api\AttributeRepositoryInterface $attributeRepository
          * @param array $data
@@ -48,7 +50,7 @@
         public function __construct(
             Context $context,
             Registry $registry,
-            SourceRepositoryInterface $sourceRepository,
+            ProcessorRepositoryInterface $processorRepository,
             StoreRepositoryInterface $storeRepository,
             AttributeRepositoryInterface $attributeRepository,
             array $data = []
@@ -56,7 +58,7 @@
         {
             parent::__construct($context, $registry, $data);
 
-            $this->_sourceRepository = $sourceRepository;
+            $this->_processorRepository = $processorRepository;
             $this->_storeRepository = $storeRepository;
             $this->_attributeRepository = $attributeRepository;
         }
@@ -86,7 +88,7 @@
 
             if($source === null)
             {
-                $source = $this->getSourceRepository()->getById(
+                $source = $this->getProcessorRepository()->getById(
                     $this->getData(ResourceInterface::FIELD_SOURCE_ID)
                 );
                 $this->setData(static::FIELD_STORE, $source);
@@ -164,20 +166,20 @@
          *
          * @access private
          *
-         * @var \Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface $_sourceRepository
+         * @var \Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface $_processorRepository
          */
-        private $_sourceRepository;
+        private $_processorRepository;
 
         /**
          * Gets Source Repository
          *
          * @access protected
          *
-         * @return \Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface
+         * @return \Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface
          */
-        protected function getSourceRepository(): SourceRepositoryInterface
+        protected function getProcessorRepository(): ProcessorRepositoryInterface
         {
-            return $this->_sourceRepository;
+            return $this->_processorRepository;
         }
 
         /**

@@ -15,10 +15,16 @@
     namespace Hippiemonkeys\ImportExport\Model;
 
     use Psr\Log\LoggerInterface,
+        Magento\Framework\Filesystem,
+        Magento\Framework\App\Filesystem\DirectoryList,
         Magento\Framework\Model\Context,
         Magento\Framework\Registry,
         Magento\ImportExport\Model\Import,
+        Magento\ImportExport\Model\Import\Adapter,
+        Magento\ImportExport\Model\Import\AbstractSource,
         Hippiemonkeys\Core\Model\AbstractModel,
+        Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface,
+        Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface,
         Hippiemonkeys\ImportExport\Api\Data\JobInterface,
         Hippiemonkeys\ImportExport\Model\Spi\JobResourceInterface as ResourceInterface,
         Hippiemonkeys\ImportExport\Api\Data\SourceInterface,
@@ -29,7 +35,16 @@
     implements JobInterface
     {
         protected const
-            FIELD_SOURCE = 'source';
+            IMPORT_ADAPTER_TYPE = 'csv',
+
+            IMPORT_CSV_SEPARATOR = Import::FIELD_FIELD_SEPARATOR,
+            IMPORT_CSV_ENCLOSURE = '"',
+            IMPORT_CSV_ESCAPE = '\\',
+            IMPORT_CSV_EOL = "\n",
+            IMPORT_FILE_FORMAT = 'hippiemonkeys-import-%s.' . self::IMPORT_ADAPTER_TYPE,
+
+            FIELD_SOURCE = 'source',
+            FIELD_PROCESSOR = 'processor';
 
         /**
          * Constructor
@@ -39,6 +54,7 @@
          * @param \Magento\Framework\Model\Context $context
          * @param \Magento\Framework\Registry $registry
          * @param \Hippiemonkeys\ImportExport\Api\SourceRepositoryInterface $sourceRepository
+         * @param \Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface $processorRepository
          * @param \Magento\ImportExport\Model\Import $import
          * @param \Psr\Log\LoggerInterface $logger
          * @param array $data
@@ -47,14 +63,18 @@
             Context $context,
             Registry $registry,
             SourceRepositoryInterface $sourceRepository,
+            ProcessorRepositoryInterface $processorRepository,
             Import $import,
+            Filesystem $filesystem,
             LoggerInterface $logger,
             array $data = []
         )
         {
             parent::__construct($context, $registry, $data);
             $this->_sourceRepository = $sourceRepository;
+            $this->_processorRepository = $processorRepository;
             $this->_import = $import;
+            $this->_filesystem = $filesystem;
             $this->_logger = $logger;
         }
 
@@ -65,20 +85,34 @@
          */
         public function execute(): void
         {
+            $logger = $this->getLogger();
             $import = $this->getImport();
             $import->setEntity($this->getEntityTypeCode());
-            if($import->validateSource($this->getSource()->getImportSource()))
+
+            $importValidationResult = $import->validateSource(
+                $this->getImportSource(
+                    $this->getProcessor()->processDataArray(
+                        $this->getSource()->getDataArray()
+                    ),
+                    self::IMPORT_CSV_SEPARATOR
+                )
+             );
+
+            if($importValidationResult)
             {
-                $logger = $this->getLogger();
                 $import->setData(Import::FIELD_IMPORT_IDS, implode(',', $import->getValidatedIds()));
                 if($import->importSource())
                 {
-                    /** @todo import success */
+                    $logger->critical(__('Import Completed Successfully'));
                 }
                 else
                 {
-                    /** @todo import failed */
+                    $logger->critical(__('Import Failed'));
                 }
+            }
+            else
+            {
+                $logger->critical(__('Import Validation Failed'));
             }
         }
 
@@ -181,6 +215,36 @@
         }
 
         /**
+         * Gets Processor
+         *
+         * @access protected
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface
+         */
+        public function getProcessor(): ProcessorInterface
+        {
+            $processor = $this->getData(static::FIELD_PROCESSOR);
+
+            if ($processor === null)
+            {
+                $processor = $this->getSourceRepository()->getById(
+                    $this->getData(ResourceInterface::FIELD_PROCESSOR_ID)
+                );
+                $this->setData(static::FIELD_PROCESSOR, $processor);
+            }
+
+            return $processor;
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function setProcessor(ProcessorInterface $processor): JobInterface
+        {
+            return $this->setData(ResourceInterface::FIELD_PROCESSOR_ID, $processor->getId())->setData(static::FIELD_PROCESSOR, $processor);
+        }
+
+        /**
          * Source Repository property
          *
          * @access protected
@@ -199,6 +263,27 @@
         protected function getSourceRepository(): SourceRepositoryInterface
         {
             return $this->_sourceRepository;
+        }
+
+        /**
+         * Processor Repository property
+         *
+         * @access protected
+         *
+         * @var \Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface $_processorRepository
+         */
+        private $_processorRepository;
+
+        /**
+         * Gets Processor Repository
+         *
+         * @access protected
+         *
+         * @return \Hippiemonkeys\ImportExport\Api\ProcessorRepositoryInterface
+         */
+        protected function getProcessorRepository(): ProcessorRepositoryInterface
+        {
+            return $this->_processorRepository;
         }
 
         /**
@@ -223,6 +308,27 @@
         }
 
         /**
+         * Filesystem property
+         *
+         * @access protected
+         *
+         * @var \Magento\Framework\Filesystem $_filesystem
+         */
+        private $_filesystem;
+
+        /**
+         * Gets Filesystem
+         *
+         * @access protected
+         *
+         * @return \Magento\Framework\Filesystem
+         */
+        protected function getFilesystem(): Filesystem
+        {
+            return $this->_filesystem;
+        }
+
+        /**
          * Logger property
          *
          * @access protected
@@ -241,6 +347,27 @@
         protected function getLogger(): LoggerInterface
         {
             return $this->_logger;
+        }
+
+        /**
+         * Gets Import Source
+         *
+         * @access protected
+         *
+         * @return \Magento\ImportExport\Model\Import\AbstractSource
+         */
+        protected function getImportSource(array $data, string $options): AbstractSource
+        {
+            $fileName = sprintf(self::IMPORT_FILE_FORMAT, $this->getCode());
+
+            $directory = $this->getFilesystem()->getDirectoryWrite(DirectoryList::TMP);
+            $directory->openFile($fileName)->writeCsv(
+                $data,
+                self::IMPORT_CSV_SEPARATOR,
+                self::IMPORT_CSV_ENCLOSURE
+            );
+
+            return Adapter::factory(self::IMPORT_ADAPTER_TYPE, $directory->getAbsolutePath(null), $fileName, $options);
         }
     }
 ?>

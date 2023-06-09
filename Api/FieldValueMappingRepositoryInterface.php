@@ -24,7 +24,7 @@
     interface FieldValueMappingRepositoryInterface
     {
         /**
-         * Gets Field Value Mapping from the persitent storage by its Id
+         * Gets Field Value Mapping from the persistent storage by its Id
          *
          * @access public
          *
@@ -46,7 +46,7 @@
         function getList(SearchCriteriaInterface $searchCriteria): FieldValueMappingSearchResultInterface;
 
         /**
-         * Saves Field Value Mapping to the persitent storage
+         * Saves Field Value Mapping to the persistent storage
          *
          * @access public
          *
@@ -57,7 +57,7 @@
         function save(FieldValueMappingInterface $FieldValueMapping): FieldValueMappingInterface;
 
         /**
-         * Deletes Field Value Mapping from the persitent storage
+         * Deletes Field Value Mapping from the persistent storage
          *
          * @access public
          *
