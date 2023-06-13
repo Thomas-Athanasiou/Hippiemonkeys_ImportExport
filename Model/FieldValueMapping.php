@@ -14,7 +14,9 @@
 
     namespace Hippiemonkeys\ImportExport\Api\Data;
 
-    use Hippiemonkeys\Core\Model\AbstractModel,
+    use Magento\Framework\Model\Context,
+        Magento\Framework\Registry,
+        Hippiemonkeys\Core\Model\AbstractModel,
         Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterface,
         Hippiemonkeys\ImportExport\Api\Data\FieldMappingInterface,
         Hippiemonkeys\ImportExport\Api\FieldMappingRepositoryInterface,

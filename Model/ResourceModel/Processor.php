@@ -41,6 +41,14 @@
         /**
          * {@inheritdoc}
          */
+        public function loadProcessorByCode(ProcessorInterface $processor, string $code): ProcessorResourceInterface
+        {
+            return $this->loadModel($processor, $code, self::FIELD_CODE);
+        }
+
+        /**
+         * {@inheritdoc}
+         */
         public function deleteProcessor(ProcessorInterface $processor): bool
         {
             return $this->deleteModel($processor);

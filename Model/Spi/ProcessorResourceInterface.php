@@ -50,6 +50,18 @@
         function loadProcessorById(ProcessorInterface $processor, $id): ProcessorResourceInterface;
 
         /**
+         * Loads a Processor by its Code
+         *
+         * @access public
+         *
+         * @param \Hippiemonkeys\ImportExport\Api\Data\ProcessorInterface $processor
+         * @param string $code
+         *
+         * @return \Hippiemonkeys\ImportExport\Model\Spi\ProcessorResourceInterface
+         */
+        function loadProcessorByCode(ProcessorInterface $processor, string $code): ProcessorResourceInterface;
+
+        /**
          * Deletes the Processor
          *
          * @access public

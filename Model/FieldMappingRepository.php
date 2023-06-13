@@ -108,23 +108,15 @@
         {
             $processorId = $processor->getId();
             $searchCriteriaBuilder = $this->getSearchCriteriaBuilder();
-            $fieldMappings = $this->getList(
+
+            $fieldMappingList = $this->getList(
                 $searchCriteriaBuilder
                     ->addFilter(ResourceInterface::FIELD_PROCESSOR_ID, $processorId, 'eq')
                     ->setPageSize(1)
                     ->create()
-            )->getItems();
+            );
 
-            $searchCriteriaBuilder->setPageSize(null);
-
-            $fieldMapping = reset($fieldMappings);
-            if($fieldMapping === false)
-            {
-                throw new NoSuchEntityException(
-                    __('The Field Mapping with Code Id "%1" and Tracker Code "%2" that was requested doesn\'t exist. Verify the Field Mapping and try again', $processorId)
-                );
-            }
-            return $fieldMapping;
+            return $fieldMappingList;
         }
 
         /**

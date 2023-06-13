@@ -19,7 +19,6 @@
         Hippiemonkeys\ImportExport\Model\Spi\SourceResourceInterface as ResourceInterface,
         Magento\Framework\Registry,
         Magento\Framework\Model\Context,
-        Magento\Framework\Module\Dir as ModuleDirectory,
         Magento\Framework\Filesystem;
 
     abstract class AbstractSource
@@ -33,21 +32,18 @@
          *
          * @param \Magento\Framework\Model\Context $context
          * @param \Magento\Framework\Registry $registry
-         * @param \Magento\Framework\Module\Dir $moduleDirectory
          * @param \Magento\Framework\Filesystem $filesystem
          * @param array $data
          */
         public function __construct(
             Context $context,
             Registry $registry,
-            ModuleDirectory $moduleDirectory,
             Filesystem $filesystem,
             array $data = []
         )
         {
             parent::__construct($context, $registry, $data);
 
-            $this->_moduleDirectory = $moduleDirectory;
             $this->_filesystem = $filesystem;
         }
 

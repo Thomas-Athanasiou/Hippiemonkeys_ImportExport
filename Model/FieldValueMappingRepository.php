@@ -54,7 +54,7 @@
         )
         {
             $this->_resource = $resource;
-            $this->_FieldValueMappingFactory = $fieldValueMappingFactory;
+            $this->_fieldValueMappingFactory = $fieldValueMappingFactory;
             $this->_searchResultFactory = $searchResultFactory;
             $this->_collectionProcessor = $collectionProcessor;
         }
@@ -82,6 +82,7 @@
                     $this->_idCache[$id] = $fieldValueMapping;
                 }
             }
+
             return $fieldValueMapping;
         }
 
@@ -137,16 +138,16 @@
         }
 
         /**
-         * FieldValueMapping Factory property
+         * Field Value Mapping Factory property
          *
          * @access private
          *
-         * @var \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterfaceFactory $_FieldValueMappingFactory
+         * @var \Hippiemonkeys\ImportExport\Api\Data\FieldValueMappingInterfaceFactory $_fieldValueMappingFactory
          */
-        private $_FieldValueMappingFactory;
+        private $_fieldValueMappingFactory;
 
         /**
-         * Gets FieldValueMapping Factory
+         * Gets Field Value Mapping Factory
          *
          * @access protected
          *
@@ -154,7 +155,7 @@
          */
         protected function getFieldValueMappingFactory(): FieldValueMappingInterfaceFactory
         {
-            return $this->_FieldValueMappingFactory;
+            return $this->_fieldValueMappingFactory;
         }
 
         /**

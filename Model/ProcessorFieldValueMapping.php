@@ -54,7 +54,7 @@
             {
                 foreach($rowData as $fieldName => $fieldValue)
                 {
-
+                    $dataArray[$fieldName] = $fieldValue;
                 }
             }
 
