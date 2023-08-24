@@ -46,7 +46,6 @@
          */
         function getList(SearchCriteriaInterface $searchCriteria): FieldMappingSearchResultInterface;
 
-
         /**
          * Gets list by Processor
          *

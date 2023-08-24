@@ -44,24 +44,6 @@
             <column name="id" />
         </constraint>
     </table>
-    <table name="hippiemonkeys_importexport_source_csv" resource="default" engine="innodb" comment="Hippiemonkeys Import Export - Source CSV">
-        <column xsi:type="int" name="id" nullable="false" unsigned="true" identity="true" comment="ID" />
-        <column xsi:type="varchar" name="separator" length="32" nullable="false" comment="Separator" />
-        <column xsi:type="varchar" name="enclosure" length="8" nullable="false" comment="Enclosure" />
-        <column xsi:type="varchar" name="escape" length="8" nullable="false" comment="Escape" />
-        <constraint xsi:type="primary" referenceId="HIPPIEMONKEYS_IMPORTEXPORT_SOURCE_CSV_PK">
-            <column name="id" />
-        </constraint>
-        <constraint
-            xsi:type="foreign"
-            referenceId="HIPPIEMONKEYS_IMPORTEXPORT_SOURCE_CSV_ID_FK"
-            table="hippiemonkeys_importexport_source_csv"
-            column="ID"
-            referenceTable="hippiemonkeys_importexport_source"
-            referenceColumn="id"
-            onDelete="CASCADE"
-        />
-    </table>
     <table name="hippiemonkeys_importexport_field_mapping" resource="default" engine="innodb" comment="Hippiemonkeys Import Export - Field Mapping">
         <column xsi:type="int" name="id" nullable="false" unsigned="true" identity="true" comment="ID" />
         <column xsi:type="varchar" name="code" length="16" nullable="false" comment="Code" />

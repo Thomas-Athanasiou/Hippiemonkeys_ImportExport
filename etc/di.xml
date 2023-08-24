@@ -13,4 +13,12 @@
             <argument name="parentConfig" xsi:type="object">Hippiemonkeys\Core\Helper\Config\Section\General</argument>
         </arguments>
     </virtualType>
+    <type name="Hippiemonkeys\ImportExport\Model\ProcessorComposite">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="fieldmapping" xsi:type="object">Hippiemonkeys\ImportExport\Model\ProcessorFieldMapping</item>
+                <item name="fieldvaluemapping" xsi:type="object">Hippiemonkeys\ImportExport\Model\ProcessorFieldValueMapping</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

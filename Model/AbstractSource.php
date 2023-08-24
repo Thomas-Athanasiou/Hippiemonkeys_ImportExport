@@ -32,19 +32,15 @@
          *
          * @param \Magento\Framework\Model\Context $context
          * @param \Magento\Framework\Registry $registry
-         * @param \Magento\Framework\Filesystem $filesystem
          * @param array $data
          */
         public function __construct(
             Context $context,
             Registry $registry,
-            Filesystem $filesystem,
             array $data = []
         )
         {
             parent::__construct($context, $registry, $data);
-
-            $this->_filesystem = $filesystem;
         }
 
         /**
